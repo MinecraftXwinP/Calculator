@@ -16,7 +16,7 @@ int priorityTest(char op)
 
 int main(int argc,char** args)
 {
-    Stack<char> stack();
+    Stack<char> stack;
     string output;
     string input(args[1]);
     if(argc != 2)
