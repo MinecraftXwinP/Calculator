@@ -42,33 +42,29 @@ void Stack<T>::arangeArray()
 	m_arraySize += m_interval;
     delete [] data;
     data = newly;
+	cout << "top: " << m_top << endl;
+	cout << "new size: " << m_arraySize << endl;
 }
 template<class T>
 void Stack<T>::put(T element)
 {
     while (true)
     {
-        if (m_top >= m_arraySize)
+        if (m_top >= m_arraySize -1)
         {
-			cout << m_top << endl;
-			cout << sizeof(*data) << endl;
-			cout << m_elementSize << endl;
             arangeArray();
             continue;
         } else
         {
-			m_top++;
-            data[m_top] = element;
+            data[++m_top] = element;
             break;
         }
-
     }
 }
 template<class T>
 T Stack<T>::pop()
 {
-    T t = data[m_top];
-    m_top--;
+    T t = data[m_top--];
     return t;
 }
 template<class T>
