@@ -12,20 +12,23 @@ class Stack
         virtual ~Stack();
         void put(T);
         T pop();
+		const T peek();
         void clear();
         void setInterval(int);
         bool hasNext();
+		int getCapability();
     protected:
     private:
 
         int m_elementSize;
+		int m_arraySize;
         int m_interval;
         int m_top;
 
-        T data[];
+        T* data;
 
         void init(int,int);
         void arangeArray();
 };
-
 #endif // STACK_H
+#include <Stack.tpp>

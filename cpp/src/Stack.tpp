@@ -1,4 +1,5 @@
-#include "Stack.h"
+#include <iostream>
+using namespace std;
 template<class T>
 Stack<T>::Stack()
 {
@@ -20,7 +21,8 @@ void Stack<T>::init(int initSize,int interval)
     m_elementSize = sizeof(T);
     m_interval = interval;
     m_top = -1;
-    data = new T[m_interval];
+	m_arraySize = initSize;
+    data = new T[initSize];
 
 }
 template<class T>
@@ -31,11 +33,13 @@ void Stack<T>::setInterval(int i)
 template<class T>
 void Stack<T>::arangeArray()
 {
-    T newly[] = new T[data.length + m_interval];
-    for (int i = 0;i < data.length; i++)
+	cout << "arranging" << endl;
+    T* newly = new T[m_arraySize + m_interval];
+    for (int i = 0;i < m_arraySize; i++)
     {
         newly[i] = data[i];
     }
+	m_arraySize += m_interval;
     delete [] data;
     data = newly;
 }
@@ -44,15 +48,18 @@ void Stack<T>::put(T element)
 {
     while (true)
     {
-        if (m_top >= data.length - 1)
+        if (m_top >= m_arraySize)
         {
+			cout << m_top << endl;
+			cout << sizeof(*data) << endl;
+			cout << m_elementSize << endl;
             arangeArray();
             continue;
         } else
         {
-            data[m_top + 1] = element;
-            m_top++;
-            return;
+			m_top++;
+            data[m_top] = element;
+            break;
         }
 
     }
@@ -79,4 +86,14 @@ bool Stack<T>::hasNext()
     {
         return true;
     }
+}
+template<class T>
+const T Stack<T>::peek()
+{
+	return data[m_top];
+}
+template<class T>
+int Stack<T>::getCapability()
+{
+	return m_top;
 }
