@@ -53,7 +53,7 @@ int main(int argc,char** args)
 					top = stack.peek();
 				}
 				stack.put('+');
-                break;
+				break;
 			}
             case '-':
 			{
@@ -64,14 +64,14 @@ int main(int argc,char** args)
 					top = stack.peek();
 				}
 				stack.put('-');
-                break;
+				break;
 			}
             case '*':
 				stack.put('*');
 				break;
             case '/':
 				stack.put('/');
-                break;	
+				break;
 			default:
 				output += c;
         }
