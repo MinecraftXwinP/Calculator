@@ -18,8 +18,16 @@ int getPriority(char op)
 
 int main(int argc,char** args)
 {
-    Stack<char> stack(5,5);
+
+
+    cout << "Output: " << output << endl;
+}
+
+string translateToPostfix(string input)
+{
+	Stack<char> stack;
     string output;
+	bool flag;
     if(argc != 2)
     {
         cout << "Usage: translate <input> " << endl;
@@ -28,7 +36,7 @@ int main(int argc,char** args)
 	int i = 0;
     while (true)
     {
-		char c = args[1][i];
+		intput[i];
 		if (c == '\0')
 			break;
         switch (c)
@@ -81,6 +89,25 @@ int main(int argc,char** args)
 	{
 		output += stack.pop();
 	}
+}
 
-    cout << "Output: " << output << endl;
+int calculate(string postfix)
+{
+	Stack<int> stack;
+	for(int i = 0; i < postfix.size(); i++)
+	{
+		switch (postfix[i])
+		{
+			case '+':
+				break;
+			case '-':
+				break;
+			case '*':
+				break;
+			case '/':
+				break;
+			default:
+				stack.put(
+		}
+	}
 }
