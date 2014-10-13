@@ -1,19 +1,27 @@
-#ifndef
+#ifndef	STRINGTOKENIZER_H
 #define STRINGTOKENIZER_H
 
 #include <string>
+#include <list>
+using namespace std;
 class StringTokenizer
 {
 	public:
 		StringTokenizer(char[]);
 		StringTokenizer(string);
-		~StringTokenizer();
-		char[] next();
 		
+		~StringTokenizer();
+		char* next();
+		
+		void reset();
+		bool hasNext();
 	protected:
 	private:
-		char** m_data;
-		int m_header;
+		list<char*> m_data;
+		auto m_header;
 		int m_size;
-}
+		void init();
+		void tokenize(char*);
+		
+};
 #endif

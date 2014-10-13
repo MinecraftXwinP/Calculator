@@ -1,42 +1,63 @@
-#include <StringTokenizer>
+#include "StringTokenizer.h"
 
-StringTokenizer::StringTokenizer(char[] input)
+StringTokenizer::StringTokenizer(char input[])
 {
-	m_data = ;
-	for (int i = 0; i < sizeof(input)/sizeof(char); i++)
-	{
-		
-	}
+	init();
+	tokenize(input);
 }
 
 StringTokenizer::StringTokenizer(string input)
 {
-	m_data = new char[input.size()];
-	m_size = input.size();
-	for (int i = 0; i < m_size; i++)
-	{
-		m_data[i] = input[i];
-	}
+	init();
+	tokenize(input.data());
 }
 
-StringTokenizer::~StringTokenizer(){}
-
-char[] StringTokenizer::next()
+void StringTokenizer::tokenize(char* input)
 {
-	if (hasNext())
-		return m_data[++m_header];
-	else
-		return "0";
+	int i = 0;
+	int j = 0;
+	while (input[i] != '\0')
+	{
+		if (input[i] == ' ')
+		{
+			char* temp = char[i - j];
+			for (int k = j,t = 0; k <= i; k++,t++)
+			{
+				temp[t] = input[k];
+			}
+			m_data.push_back(temp);
+			j = i;
+		}
+	}
+	
+}
+
+StringTokenizer::~StringTokenizer()
+{
+	delete &m_data;
+}
+
+void StringTokenizer::init()
+{
+}
+
+char* StringTokenizer::next()
+{
+	if (m_header == 0)
+	{
+		m_header = m_data.begin();
+	}
+	return *m_header++;
 }
 
 bool StringTokenizer::hasNext()
 {
-	if (m_header < size - 1))
+	if (m_header != m_data.end())
 		return true;
 	return false;
 }
 
 void StringTokenizer::reset()
 {
-	header = 0;
+	m_header = m_data.begin();
 }
