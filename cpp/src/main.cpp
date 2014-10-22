@@ -44,10 +44,10 @@ string translateToPostfix(string input)
 		{
 			char out;
 			while((out = stack.pop()) != '(')
-				{
+			{
 				output += out;
 				output += " ";
-            }
+			}
 		}
 		else if (StringUtils::contain(token,'+'))
 		{
@@ -125,6 +125,5 @@ double calculate(string postfix)
 			stack.put(StringUtils::strToDouble(token));
 		}
 	}
-	double result = stack.pop();
-	return result;
+	return stack.pop();
 }
