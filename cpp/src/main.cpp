@@ -1,9 +1,9 @@
 #include <iostream>
-#include <cstring>
+#include <string>
 #include "Stack.h"
 #include "StringTokenizer.h"
 #include "StringUtils.h"
-
+using namespace std;
 int getPriority(char op)
 {
     if (op == '+' || op == '-' || op == '(')
@@ -15,7 +15,7 @@ int getPriority(char op)
     }
 }
 string translateToPostfix(string);
-int calculate(string);
+double calculate(string);
 int main(int argc,char** args)
 {
 	using namespace std;
@@ -24,8 +24,8 @@ int main(int argc,char** args)
 	cin.getline(in,256);
 	string postfix(translateToPostfix(in));
 	cout << "Postfix:" << postfix << endl;
-	cout << "Output: " << calculate(postfix) << endl;
-	
+	cout << "Output: " << (double)calculate(postfix) << endl;
+	return 0;
 }
 
 string translateToPostfix(string input)
@@ -36,7 +36,6 @@ string translateToPostfix(string input)
 	while (tokenizer.hasNext())
 	{
 		char* token = tokenizer.next();
-		cout << "parse " << token << endl;
 		if (StringUtils::contain(token,'('))
 		{
 			stack.put('(');
@@ -89,15 +88,15 @@ string translateToPostfix(string input)
 	while(stack.getCapability() != -1)
 	{
 		output += stack.pop();
+		output += " ";
 	}
-	cout << "return :" << output << endl;
-	return output;
+	return output.substr(0,output.size() - 1);
 }
 
-int calculate(string postfix)
+double calculate(string postfix)
 {
 	StringTokenizer tokenizer(postfix);
-	Stack<int> stack;
+	Stack<double> stack;
 	while (tokenizer.hasNext())
 	{
 		char* token = tokenizer.next();
@@ -107,7 +106,9 @@ int calculate(string postfix)
 		}
 		else if (StringUtils::contain(token, '-'))
 		{
-			stack.put(stack.pop() - stack.pop());
+			double rv = stack.pop();
+			double lv = stack.pop();
+			stack.put(lv - rv);
 		}
 		else if (StringUtils::contain(token, '*'))
 		{
@@ -115,14 +116,15 @@ int calculate(string postfix)
 		}
 		else if (StringUtils::contain(token, '/'))
 		{
-			int rv = stack.pop();
-			int lv = stack.pop();
+			double rv = stack.pop();
+			double lv = stack.pop();
 			stack.put(lv/rv);
 		}
 		else
 		{
-			stack.put(StringUtils::strToInt(token));
+			stack.put(StringUtils::strToDouble(token));
 		}
 	}
-	return stack.pop();
+	double result = stack.pop();
+	return result;
 }
