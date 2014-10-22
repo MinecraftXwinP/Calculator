@@ -4,7 +4,6 @@
 #include <cmath>
 namespace StringUtils
 {
-	using namespace std;
 	//calculate the length of string without \0
 	inline int getStringLength(const char* input)
 	{
@@ -62,13 +61,17 @@ namespace StringUtils
 		return flag;
 	}
 	
-	inline int strToInt(const char* input)
+	inline double strToDouble(const char* input)
 	{
 		int length = getStringLength(input);
-		int sum = 0;
-		for (int i = 0; i <= length; i++)
+		double sum = 0.0d;
+		
+		for (int i = length - 1,k = 0; i >= 0; i--, k++)
 		{
-			sum += pow(10,length) * (((int)(input[i])) - 57);
+			int num = (input[i]) - 48;
+			if (num == 0)
+				continue;
+			sum += (double)pow(10,k) * num;
 		}
 		if (input[0] == '-')
 		{
