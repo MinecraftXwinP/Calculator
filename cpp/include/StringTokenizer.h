@@ -12,16 +12,16 @@ class StringTokenizer
 		
 		~StringTokenizer();
 		char* next();
-		
+		const char* dumpPrint();
 		void reset();
 		bool hasNext();
 	protected:
 	private:
 		list<char*> m_data;
-		auto m_header;
+		list<char*>::iterator m_header;
 		int m_size;
 		void init();
-		void tokenize(char*);
+		void tokenize(const char*);
 		
 };
 #endif

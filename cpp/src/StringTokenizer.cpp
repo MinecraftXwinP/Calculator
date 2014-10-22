@@ -1,35 +1,39 @@
 #include "StringTokenizer.h"
+#include "StringUtils.h"
+#include <iostream>
 
 StringTokenizer::StringTokenizer(char input[])
 {
-	init();
 	tokenize(input);
 }
 
 StringTokenizer::StringTokenizer(string input)
 {
-	init();
-	tokenize(input.data());
+	tokenize(input.c_str());
 }
 
-void StringTokenizer::tokenize(char* input)
+void StringTokenizer::tokenize(const char* input)
 {
-	int i = 0;
-	int j = 0;
-	while (input[i] != '\0')
+	int size = StringUtils::getStringLength(input);
+	using namespace std;
+	for(int i = 0,j = 0; i <= size; i++)
 	{
-		if (input[i] == ' ')
+		if (input[i] == ' ' || i == size)
 		{
-			char* temp = char[i - j];
-			for (int k = j,t = 0; k <= i; k++,t++)
+			char* temp = new char[i - j + 1];
+			temp[i - j] = '\0';
+			for (int k = 0; k < i - j; k++)
 			{
-				temp[t] = input[k];
+				temp[k] = input[j + k];
 			}
 			m_data.push_back(temp);
-			j = i;
+			cout << "sub string: \"" << temp << "\"" << endl;
+			m_size++;
+			j = i + 1;
 		}
 	}
-	
+	cout << "tokenizer done!" << endl;
+	this->reset();
 }
 
 StringTokenizer::~StringTokenizer()
@@ -43,7 +47,7 @@ void StringTokenizer::init()
 
 char* StringTokenizer::next()
 {
-	if (m_header == 0)
+	if (&m_header == NULL)
 	{
 		m_header = m_data.begin();
 	}
@@ -52,12 +56,30 @@ char* StringTokenizer::next()
 
 bool StringTokenizer::hasNext()
 {
+
 	if (m_header != m_data.end())
+	{	
+		cout << "hasNext" << endl;
 		return true;
+	}
+	cout << "O" << endl;
 	return false;
 }
 
 void StringTokenizer::reset()
 {
 	m_header = m_data.begin();
+}
+
+const char* StringTokenizer::dumpPrint()
+{
+	string output;
+	while (this->hasNext())
+	{
+		output += this->next();
+		output += " ";
+	}
+	
+	return output.data();
+	
 }
