@@ -24,14 +24,14 @@ int main(int argc,char** args)
 	cin.getline(in,256);
 	string postfix(translateToPostfix(in));
 	cout << "Postfix:" << postfix << endl;
-    cout << "Output: " << calculate(postfix) << endl;
+	cout << "Output: " << calculate(postfix) << endl;
 	
 }
 
 string translateToPostfix(string input)
 {
 	Stack<char> stack;
-    string output;
+	string output;
 	StringTokenizer tokenizer(input);
 	while (tokenizer.hasNext())
 	{
@@ -44,9 +44,9 @@ string translateToPostfix(string input)
 		else if (StringUtils::contain(token,')'))
 		{
 			char out;
-            while((out = stack.pop()) != '(')
-            {
-                output += out;
+			while((out = stack.pop()) != '(')
+				{
+				output += out;
 				output += " ";
             }
 		}
